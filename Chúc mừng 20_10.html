@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chúc mừng 20/10</title>
+<script>
+// ✏️ NỘI DUNG Ở ĐÂY: sửa chữ trong object này là đủ, không cần đụng phần code bên dưới
+const CARD = {
+  hint: "Chạm vào nụ hoa để hoa nở nhé",
+  title: "Chúc mừng 20/10",
+  to: "Gửi bạn xinh của mình,",
+  body: [
+    "Nhân ngày 20/10, mình chỉ muốn nói cảm ơn bạn vì đã là một người bạn tuyệt vời, luôn nghe mình kể chuyện và luôn ở đó mỗi khi mình cần.",
+    "Chúc bạn mỗi ngày đều nhẹ nhàng như cánh hoa, vui như được nhận quà và được thương yêu thật nhiều."
+  ],
+  wishes: ["Luôn xinh và rạng rỡ", "Cười thật nhiều", "Bình an, hạnh phúc", "Điều ước nào cũng thành"],
+  sign: "Thương bạn nhiều lắm ♥",
+  gift: "Tặng bạn một bông hoa",
+  giftDone: "Hoa đến tay bạn rồi nè, 20/10 vui nha"
+};
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playpen+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --bg1:#fff4f7; --bg2:#ffdde9; --paper:#fffaf7; --ink:#573040; --muted:#8f6676;
+  --rose:#e24f7c; --rose-d:#c43763; --line:#f2c4d3; --shadow:rgba(196,55,99,.26); --chip:#ffe7ee;
+  --p1:#ffb8cf; --p2:#ff86ab; --heart:#ffd45e; --heart-d:#f0a93a; --leaf:#86cfa0; --stem:#5fb084;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg1:#26151d; --bg2:#3e202e; --paper:#3a2330; --ink:#ffe8ee; --muted:#e2b5c3;
+    --rose:#ff7fa0; --rose-d:#e45a80; --line:#6b3b4d; --shadow:rgba(0,0,0,.45); --chip:#4d2a3b;
+    --p1:#e993b0; --p2:#ff6f9a; --heart:#ffd45e; --heart-d:#e0a037; --leaf:#4f9d76; --stem:#3f8765;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg1:#26151d; --bg2:#3e202e; --paper:#3a2330; --ink:#ffe8ee; --muted:#e2b5c3;
+  --rose:#ff7fa0; --rose-d:#e45a80; --line:#6b3b4d; --shadow:rgba(0,0,0,.45); --chip:#4d2a3b;
+  --p1:#e993b0; --p2:#ff6f9a; --heart:#ffd45e; --heart-d:#e0a037; --leaf:#4f9d76; --stem:#3f8765;
+}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100%; display:grid; place-items:center; padding:28px 18px 40px; overflow-x:hidden;
+  background:linear-gradient(165deg,var(--bg1),var(--bg2)) fixed; color:var(--ink);
+  font-family:"Playpen Sans","Segoe Print","Comic Sans MS",cursive,sans-serif;
+}
+.fall{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fall span{position:absolute;top:-40px;color:var(--p1);opacity:0;animation:drift linear infinite}
+@keyframes drift{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translate(50px,112vh) rotate(300deg);opacity:0}}
+main{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
+
+/* bông hoa */
+.flower{display:block;margin:0 auto;width:min(240px,64vw);background:none;border:0;padding:0;cursor:pointer;filter:drop-shadow(0 12px 16px var(--shadow));transition:transform .3s,width .9s .2s}
+.flower:not(.bloom):hover{transform:translateY(-3px) rotate(-2deg)}
+.flower.done{width:min(150px,42vw)}
+.flower:focus-visible,.gift:focus-visible{outline:3px solid var(--rose-d);outline-offset:4px;border-radius:14px}
+.flower svg{display:block;width:100%;height:auto;overflow:visible}
+.stem{fill:none;stroke:var(--stem);stroke-width:7;stroke-linecap:round}
+.leaf{fill:var(--leaf)}
+.petal,.core{transform-origin:100px 100px;transform:rotate(var(--r,0deg)) scale(.26);transition:transform 1.1s cubic-bezier(.2,1.25,.3,1) var(--d,0s)}
+.bloom .petal,.bloom .core{transform:rotate(var(--r,0deg)) scale(1)}
+.hint{margin:18px 0 0;color:var(--muted);line-height:1.6}
+
+/* tấm thiệp */
+.card[hidden]{display:none}
+.card{margin-top:22px;background:var(--paper);border-radius:22px;padding:30px 24px 28px;box-shadow:0 18px 40px var(--shadow);border:1.5px solid var(--line);animation:unfold .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes unfold{from{transform:translateY(36px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+.card h1{margin:0 0 10px;font-family:Pacifico,"Brush Script MT",cursive;font-weight:400;font-size:clamp(1.9rem,9vw,2.5rem);color:var(--rose);line-height:1.3;outline:none}
+.to{margin:0 0 18px;color:var(--muted);font-weight:600}
+.body p{margin:0 0 14px;line-height:1.85;font-size:1.02rem;text-align:left}
+.wishes{list-style:none;margin:20px 0;padding:0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.wishes li{padding:8px 14px;border-radius:999px;background:var(--chip);font-size:.92rem}
+.wishes li::before{content:"✿ ";color:var(--rose)}
+.sign{margin:6px 0 24px;font-weight:600;color:var(--rose-d)}
+.gift{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:1.05rem;color:#fff;background:linear-gradient(135deg,var(--rose),var(--rose-d));padding:14px 28px;border-radius:999px;box-shadow:0 8px 18px var(--shadow);transition:transform .15s}
+.gift:active{transform:scale(.95)}
+.burst{position:fixed;z-index:10;pointer-events:none;font-size:22px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .fall{display:none}
+}
+</style>
+</head>
+<body>
+<div class="fall" id="fall" aria-hidden="true"></div>
+<main>
+  <button class="flower" id="flower" aria-label="Chạm để hoa nở">
+    <svg viewBox="0 0 200 280" aria-hidden="true">
+      <path class="stem" d="M100 100 C98 160 102 220 100 274"/>
+      <path class="leaf" d="M100 225 C62 222 40 200 34 176 C72 176 96 196 100 225Z"/>
+      <path class="leaf" d="M100 200 C138 197 160 175 166 151 C128 151 104 171 100 200Z"/>
+      <g id="petals"></g>
+      <circle class="core" cx="100" cy="100" r="15" fill="var(--heart)" style="--d:.5s"/>
+      <circle class="core" cx="100" cy="100" r="7" fill="var(--heart-d)" style="--d:.55s"/>
+    </svg>
+  </button>
+  <p class="hint" id="hint"></p>
+
+  <article class="card" id="card" hidden>
+    <h1 id="title" tabindex="-1"></h1>
+    <p class="to" id="to"></p>
+    <div class="body" id="body"></div>
+    <ul class="wishes" id="wishes"></ul>
+    <p class="sign" id="sign"></p>
+    <button class="gift" id="gift"></button>
+  </article>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+document.title = CARD.title;
+$("hint").textContent = CARD.hint;
+$("title").textContent = CARD.title;
+$("to").textContent = CARD.to;
+$("sign").textContent = CARD.sign;
+$("gift").textContent = CARD.gift;
+CARD.body.forEach(t => { const p = document.createElement("p"); p.textContent = t; $("body").appendChild(p); });
+CARD.wishes.forEach(t => { const li = document.createElement("li"); li.textContent = t; $("wishes").appendChild(li); });
+
+// vẽ cánh hoa: 8 cánh ngoài + 8 cánh trong
+function petal(d, fill, r, delay) {
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", d);
+  p.setAttribute("fill", fill);
+  p.setAttribute("class", "petal");
+  p.setAttribute("style", `--r:${r}deg;--d:${delay}s`);
+  $("petals").appendChild(p);
+}
+for (let i = 0; i < 8; i++) petal("M100 100 C70 72 74 34 100 18 C126 34 130 72 100 100Z", "var(--p1)", i * 45, i * 0.06);
+for (let i = 0; i < 8; i++) petal("M100 100 C84 82 86 56 100 46 C114 56 116 82 100 100Z", "var(--p2)", i * 45 + 22.5, 0.3 + i * 0.05);
+
+// cánh hoa rơi nền
+for (let i = 0; i < 12; i++) {
+  const s = document.createElement("span");
+  s.textContent = "✿";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.fontSize = 14 + Math.random() * 18 + "px";
+  s.style.animationDuration = 14 + Math.random() * 12 + "s";
+  s.style.animationDelay = -Math.random() * 22 + "s";
+  $("fall").appendChild(s);
+}
+
+// chạm: hoa nở rồi hiện thiệp
+$("flower").addEventListener("click", () => {
+  $("flower").classList.add("bloom");
+  $("flower").disabled = true;
+  $("hint").hidden = true;
+  setTimeout(() => {
+    $("flower").classList.add("done");
+    $("card").hidden = false;
+    $("title").focus({ preventScroll: true });
+    $("card").scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "nearest" });
+  }, calm ? 0 : 1500);
+});
+
+// tặng hoa: hoa bung ra
+$("gift").addEventListener("click", () => {
+  const r = $("gift").getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  if (!calm) {
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement("span");
+      h.className = "burst";
+      h.textContent = i % 3 ? "🌸" : "🌷";
+      h.style.left = cx + "px"; h.style.top = cy + "px";
+      h.style.fontSize = 16 + Math.random() * 16 + "px";
+      document.body.appendChild(h);
+      const a = Math.random() * Math.PI * 2, d = 70 + Math.random() * 110;
+      h.animate(
+        [{ transform: "translate(-50%,-50%) scale(.4) rotate(0)", opacity: 1 },
+         { transform: `translate(calc(-50% + ${Math.cos(a) * d}px), calc(-50% + ${Math.sin(a) * d + 30}px)) scale(1.1) rotate(160deg)`, opacity: 0 }],
+        { duration: 1000 + Math.random() * 500, easing: "cubic-bezier(.2,.7,.3,1)" }
+      ).onfinish = () => h.remove();
+    }
+  }
+  $("gift").textContent = CARD.giftDone;
+});
+</script>
+</body>
+</html>
